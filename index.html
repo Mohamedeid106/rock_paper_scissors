@@ -8,26 +8,32 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+    <video autoplay muted loop src="background video.mp4"></video>
     <header>rock paper scissors</header>
     
     <div class="container">
-
-        <div class="leftside">
-            <div class="choices">
-                <p>Your choice: <span class="userchoise"></span></p>
-                <p>computer choice: <span class="computerchoise"></span></p>
-            </div>
-
-            <div class="scoreboard">
+            <fieldset class="scoreboard">
+                <legend>Score</legend>
                 <p>Your score: <span class="userscore"></span></p>
                 <p>computer score: <span class="computerscore"></span></p>
-            </div>
-        </div>
+            </fieldset>
 
         <div class="imgs">
             <button><img src="Rock.png" alt="rock"></button>
             <button><img src="Paper.png" alt="paper"></button>
             <button><img src="Scissors.png" alt="scissors"></button>
+        </div>
+        <div></div>
+    </div>
+    <div class="choice">
+        <div class="user">
+            <img src="Rock.png" alt="">
+            <section class="text">Your choice</section>
+        </div>
+        <section>x</section>
+        <div class="computer">
+            <img src="Paper.png" alt="">
+            <section class="text">Computer choice</section>
         </div>
     </div>
 </body>
