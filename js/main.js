@@ -1,58 +1,92 @@
-// function getComputerChoice() {
-//     return Math.floor(Math.random() * 3) == 0? "rock": Math.floor(Math.random() * 3) == 1? "paper": "scissors";
-// }
+function getComputerChoice() {
+    return Math.floor(Math.random() * 3) == 0? "Rock": Math.floor(Math.random() * 3) == 1? "Paper": "Scissors";
+}
 
-// function getHumanChoice() {
-//     return prompt("Play your turn:", "rock");
-// }
+document.addEventListener('DOMContentLoaded', function() {
+    const buttons = document.querySelectorAll("button");
 
-// function playGame() {
-//     let humanscore = 0;
-//     let computerscore = 0;
+    let humanSelection = document.querySelector(".usertext");
+    const divUser = document.querySelector(".user");
+    const userimg = document.createElement("img");
 
-//     function playRound(humanChoice, computerChoice) {
-//         if (humanChoice == "rock") {
-//             if(computerChoice == "paper") {
-//                 computerscore += 1;
-//                 console.log("You lose! Paper beats Rock");
-//             } else if (computerChoice == "scissors") {
-//                 humanscore += 1;
-//                 console.log("You won! Rock beats scissors");
-//             } else if (computerChoice == humanChoice) {
-//                 console.log("This is a tie")
-//             }
+    let computerSelection = document.querySelector(".computertext");
+    const divComp = document.querySelector(".computer");
+    const compimg = document.createElement("img");
 
-//         } else if (humanChoice == "paper") {
-//             if(computerChoice == "rock") {
-//                 humanscore += 1;
-//                 console.log("You won! Paper beats Rock");
-//             } else if (computerChoice == "scissors") {
-//                 computerscore += 1;
-//                 console.log("You lose! scissors beats paper");
-//             } else if (computerChoice == humanChoice) {
-//                 console.log("This is a tie")
-//             }
+    let scoreboard = document.querySelector(".scoreboard");
+    let humanscore = document.querySelector(".userscore");
+    let computerscore = document.querySelector(".computerscore");
+    let result = document.createElement("p");
 
-//         } else if (humanChoice == "scissors") {
-//             if(computerChoice == "paper") {
-//                 humanscore += 1;
-//                 console.log("You won! scissors beats paper");
-//             } else if (computerChoice == "rock") {
-//                 computerscore += 1;
-//                 console.log("You lose! Rock beats scissors");
-//             } else if (computerChoice == humanChoice) {
-//                 console.log("This is a tie")
-//             }
-//         }
-//     }
+    let humanScore = 0;
+    let computerScore = 0;
 
-//     for (let i = 0; i < 5; i++) {
-//         const humanSelection = getHumanChoice().toLowerCase();
-//         const computerSelection = getComputerChoice();
-//         playRound(humanSelection, computerSelection);
-//     }
+    scoreboard.appendChild(result);
 
-//     console.log(humanscore > computerscore? "You won this game!": humanscore < computerscore? "You lose this game.": "The game over with a tie!")
-// }
+    let section = document.querySelector(".choice");
+    let x = document.createElement("div");
+    x.textContent = "X";
 
-// playGame();
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+            divUser.insertBefore(userimg, humanSelection);
+            userimg.src = button.id + ".png";
+            humanSelection.innerHTML = "Your Choice";
+
+            section.insertBefore(x, divComp);
+            let computerChoice = getComputerChoice();
+
+            divComp.insertBefore(compimg, computerSelection);
+            compimg.src = computerChoice + ".png";
+            computerSelection.innerHTML = "Computer choice";
+            
+            scoreboard.style.height = "150px";
+
+            if (button.id == "Rock") {
+                if(computerChoice == "Paper") {
+                    computerScore += 1;
+                    result.textContent = "You lose! Paper beats Rock";
+                    result.style.color = "red";
+                } else if (computerChoice == "Scissors") {
+                    humanScore += 1;
+                    result.textContent = "You won! Rock beats scissors";
+                    result.style.color = "rgb(41, 63, 255)";
+                } else if (computerChoice == button.id) {
+                    result.textContent = "This is a tie";
+                    result.style.color = "white";
+                }
+
+            } else if (button.id == "Paper") {
+                if(computerChoice == "Rock") {
+                    humanScore += 1;
+                    result.textContent = "You won! Paper beats Rock";
+                    result.style.color = "rgb(41, 63, 255)";
+                } else if (computerChoice == "Scissors") {
+                    computerScore += 1;
+                    result.textContent = "You lose! scissors beats paper";
+                    result.style.color = "red";
+                } else if (computerChoice == button.id) {
+                    result.textContent = "This is a tie";
+                    result.style.color = "white";
+                }
+
+            } else if (button.id == "Scissors") {
+                if(computerChoice == "Paper") {
+                    humanScore += 1;
+                    result.textContent = "You won! scissors beats paper";
+                    result.style.color = "rgb(41, 63, 255)";
+                } else if (computerChoice == "Rock") {
+                    computerScore += 1;
+                    result.textContent = "You lose! Rock beats scissors";
+                    result.style.color = "red";
+                } else if (computerChoice == button.id) {
+                    result.textContent = "This is a tie";
+                    result.style.color = "white";
+                }
+            }
+
+            humanscore.innerHTML = humanScore;
+            computerscore.innerHTML = computerScore;
+        });
+    });
+});
