@@ -3,7 +3,7 @@ function getComputerChoice() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const buttons = document.querySelectorAll("button");
+    const buttons = document.querySelectorAll(".container .imgs button");
 
     let humanSelection = document.querySelector(".usertext");
     const divUser = document.querySelector(".user");
@@ -27,8 +27,15 @@ document.addEventListener('DOMContentLoaded', function() {
     let x = document.createElement("div");
     x.textContent = "X";
 
+    let round = 0;
+
+    let result2 = document.querySelector(".finish p");
+    let finish = document.querySelector(".finish")
+
     buttons.forEach((button) => {
         button.addEventListener("click", () => {
+            section.style.animation = "fadeIn 1s";
+
             divUser.insertBefore(userimg, humanSelection);
             userimg.src = button.id + ".png";
             humanSelection.innerHTML = "Your Choice";
@@ -49,7 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     result.style.color = "red";
                 } else if (computerChoice == "Scissors") {
                     humanScore += 1;
-                    result.textContent = "You won! Rock beats scissors";
+                    result.textContent = "You won! Rock beats Scissors";
                     result.style.color = "rgb(41, 63, 255)";
                 } else if (computerChoice == button.id) {
                     result.textContent = "This is a tie";
@@ -63,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     result.style.color = "rgb(41, 63, 255)";
                 } else if (computerChoice == "Scissors") {
                     computerScore += 1;
-                    result.textContent = "You lose! scissors beats paper";
+                    result.textContent = "You lose! Scissors beats paper";
                     result.style.color = "red";
                 } else if (computerChoice == button.id) {
                     result.textContent = "This is a tie";
@@ -73,11 +80,11 @@ document.addEventListener('DOMContentLoaded', function() {
             } else if (button.id == "Scissors") {
                 if(computerChoice == "Paper") {
                     humanScore += 1;
-                    result.textContent = "You won! scissors beats paper";
+                    result.textContent = "You won! Scissors beats paper";
                     result.style.color = "rgb(41, 63, 255)";
                 } else if (computerChoice == "Rock") {
                     computerScore += 1;
-                    result.textContent = "You lose! Rock beats scissors";
+                    result.textContent = "You lose! Rock beats Scissors";
                     result.style.color = "red";
                 } else if (computerChoice == button.id) {
                     result.textContent = "This is a tie";
@@ -87,6 +94,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
             humanscore.innerHTML = humanScore;
             computerscore.innerHTML = computerScore;
+
+            round++;
+            if (round === 5) {
+                result2.textContent = humanScore > computerScore? "You won this game!": humanScore < computerScore? "You lose this game!": "The game is over with a tie.";
+                finish.style.display = "flex";
+            }
         });
+    });
+
+    const button = document.querySelector(".finish .playAgain");
+    button.addEventListener('click', () => {
+        location.reload();
     });
 });
